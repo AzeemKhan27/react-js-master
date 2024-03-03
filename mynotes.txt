@@ -1,0 +1,24 @@
+
+vite : vite is the bundle and we used it to create our react project, because it is installing so quickly.
+
+if we use React:-
+- npx create react projectName
+
+delete some files :-
+ 
+ - setupTests.js
+ - reportWebVitals.js
+ - logo.svg
+ - App.test.js
+
+if we use React + vite
+
+ delete some files :-  App.css, index.css
+ 
+  
+
+
+
+
+
+
