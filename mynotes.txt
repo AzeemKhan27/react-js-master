@@ -1,21 +1,37 @@
 
 vite : vite is the bundle and we used it to create our react project, because it is installing so quickly.
+-------------------------------------------------------------------------------------------------------------
 
-if we use React:-
+-----------------
+if we use React:- 
+-----------------
+
+NOTE : here we one script installed automatically for connecting html and javascript. so here don't need to 
+       import any script file with html.
+
 - npx create react projectName
 
-delete some files :-
- 
- - setupTests.js
- - reportWebVitals.js
- - logo.svg
- - App.test.js
+delete some files :- 1- setupTests.js, 2- reportWebVitals.js, 3- logo.svg, 4- App.test.js
 
+-------------------------------------------------------------------------------------------------------------
+
+-----------------------
 if we use React + vite
+-----------------------
 
  delete some files :-  App.css, index.css
  
   
+--------------------------------------------------
+Note : using vite bundle we will have to make components names with .jsx
+
+
+---------------------------------------------------------------------------
+
+04/03/2024
+
+today I have learn in depth custom function in reactJS and review it's official github repo and methods,
+how is it working.
 
 
 
