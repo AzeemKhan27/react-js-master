@@ -6,6 +6,5 @@ hooks: Hooks is very power function in react, we can change our UI with help of 
   
   1- useState import from 'react' 
   2- let [counter, setCounter] = useState("here we can give object, value etc.)
-  3- 
-
-
+  3- props in depth,
+  4- learnt about errors also and resolve errors.

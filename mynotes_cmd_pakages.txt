@@ -34,7 +34,7 @@ today I have learn in depth custom function in reactJS and review it's official 
 how is it working.
 
 
-
+:: important : we can generate some react code by 'rfce' but there should be installed "react-snippet" extension.
 
 
 
