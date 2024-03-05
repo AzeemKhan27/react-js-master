@@ -2,3 +2,10 @@
 JSX : React provide JSX and JSX looking like a html and we can use and render html tags throw javascript in React,
       we can make our custom tags in React because of JSX
 
+hooks: Hooks is very power function in react, we can change our UI with help of hooks,
+  
+  1- useState import from 'react' 
+  2- let [counter, setCounter] = useState("here we can give object, value etc.)
+  3- 
+
+
