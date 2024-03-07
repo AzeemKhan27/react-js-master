@@ -1,10 +1,14 @@
-import { useState, useCallback, useEffect  } from 'react';
+import { useState, useCallback, useEffect, useRef  } from 'react';
 
 function App() {
   const [length,setLength] = useState(8);
   const [numberAllowed,setNumberAllowed] = useState(false);
   const [charAllowed,setCharAllowed] = useState(false);
   const [password,setPassword] = useState("");
+
+  //useRef hook
+
+  const passwordRef = useRef(null)
 
   const passwordGenerator = useCallback(function(){
     let pass = "";
@@ -19,8 +23,17 @@ function App() {
 
      setPassword(pass)
 
-  }, [length,numberAllowed,charAllowed,setPassword]);
+  }, [length,numberAllowed,charAllowed,setPassword]); //setPassword dependency using for taking password in cache and it's optimize way.
+  //Note : we are using useCallback() for optimization only. we can do the same with only using 
+  //       useEffect() function.  
 
+  const copyPasswordToClipboard = useCallback(function(){
+      passwordRef.current?.select() // when we copy password to clipboard, it will highlighted the password.
+      passwordRef.current?.setSelectionRange(0, 999) //optional we just tried for learning purpose.
+      window.navigator.clipboard.writeText(password)
+  },[password])
+  
+  //Note : we are running in "useEffect()"
   useEffect(()=>{
     passwordGenerator();
   },[length,numberAllowed, charAllowed, passwordGenerator]);
@@ -36,8 +49,11 @@ function App() {
                 className = "outline-none w-full py-1 px-3"
                 placeholder = "Password"
                 readOnly
+                ref={passwordRef}
             />
-            <button className='ouline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>
+            <button 
+            onClick={copyPasswordToClipboard}
+            className='ouline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>
               copy
             </button>
           </div>
