@@ -9,3 +9,17 @@ hooks: Hooks is very power function in react, we can change our UI with help of 
   3- props in depth,
   4- learnt about errors also and resolve errors.
   5- tailwind installtion in Vite bundle and using tailwind css.
+
+  (i) useCallback() used for store in cache for optimization, we can use data from cache if any problem is going on while running in useEffect().
+      defination-2 :- React useCallback hook returns a memoized function to reduce unnecessary callbacks. 
+                   This useCallback hook is used when you have a component in which the child is 
+                   rerendering again and again without need.
+
+  (ii) useEffect() used for running our code and the useEffect Hook allows you to perform 
+       side effects in your components.
+
+     :: Some examples of side effects are: fetching data, directly updating the DOM, and timers.
+        useEffect accepts two arguments. The second argument is optional.
+        useEffect(<function>, <dependency>)
+  
+  (iii) useRef() is a React Hook that lets you reference a value that’s not needed for rendering.
