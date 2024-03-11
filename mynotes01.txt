@@ -23,3 +23,10 @@ hooks: Hooks is very power function in react, we can change our UI with help of 
         useEffect(<function>, <dependency>)
   
   (iii) useRef() is a React Hook that lets you reference a value that’s not needed for rendering.
+
+------------------------------------
+   :React Router:
+------------------------------------
+
+Outlet : It's tag provided by "react-router-dom" and we used it to allow make dynamic changes in our DOM.
+RouterProvider : it is wrapper and it want only router
