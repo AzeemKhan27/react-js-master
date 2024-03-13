@@ -37,4 +37,10 @@ RouterProvider : it is wrapper and it want only router
 
 useContext() : useContext is a React Hook that lets us read and subscribe to context from the component.
 
+Call useContext at the top level of your component to read and subscribe to context.
 
+import { useContext } from 'react';
+
+function MyComponent() {
+  const theme = useContext(ThemeContext);
+}
