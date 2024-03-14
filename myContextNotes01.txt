@@ -1,0 +1,63 @@
+step-1 -|  TodoContext.js  |-
+
+import { createContext, useContext } from "react"
+
+export const TodoContext = createContext({
+    toods : [
+        {
+            id : 1,
+            todo : "Todo msg",
+            completed : false
+        }
+    ],
+
+    addTodo : (todo) => {},             // we will write functionality in App.jsx file.
+    updatedTodo : (id,todo) => {},
+    deleteTodo : (id) => {},
+    toggleComplete : (id) => {}
+    //Note : here we have make functionality like this but we don't need to make logics.
+
+})
+
+export const TodoProvider = TodoContext.Provider
+
+export const useTodo = () => {
+    return useContext(TodoContext)
+}
+
+---------
+ step-2
+---------
+1- make new file named index.js, and we will import all context file there and then export.
+
+code :-  export { TodoContext,TodoProvider, useTodo } from "./TodoContext"
+
+---------
+ step-3
+---------
+1- goto App.jsx
+2- import{ TodoProvider } from './contexts'
+3- 
+
+   const [todos, setTodos] = useState([])
+
+   const addTodo = (todo) => {
+     setTodos((prev)=>[{id:Date.now(),...todo}, ...prev])
+   }
+
+   const updatedTodo = (id,todo) => {
+    setTodos((prev) => prev.map((prevTodo) => (prevTodo.id === id ? todo : prevTodo)))
+  }
+
+  const deleteTodo = (id) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id))
+  }
+
+  const toggleComplete = (id) => {
+    setTodos((prev) => prev.map((prevTodo) => prevTodo === id ?
+    {...prevTodo, completed: !prevTodo.completed} : prevTodo))
+  }
+
+
+4- <TodoProvider value = {{todos,addTodo,updatedTodo,deleteTodo,toggleComplete}}> Html code </TodoProvider
+5- 
