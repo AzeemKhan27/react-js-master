@@ -78,7 +78,21 @@ Step 6 : create component and two files named AddTodo.jsx, Todos.jsx
         const addTodoHandler = (e) => {
         e.preventDefault()
         dispatch(addTodo(input))   // we are send input state to addTodo reducer functionality
+        setInput("")               // cleanup the input
     }
+
+  (iii) make list of todos in Todos.jsx
+
+  import { useSelector, useDispatch }  from "react-redux";     // import these hooks
+  import { removeTodo } from "../features/todo/todoSlice.jsx"; // reducer import 
+
+  function Todos() {
+  (iii)  const todos = useSelector(state => state.todos)  // GET todos from store
+         const dispatch = useDispatch();
+         return ( 
+            <div>Todos</div>
+         )
+}
 
 
 NOTE: useDispatch -> reducer -> store  // dispatch reducer ko use krte hue store me changes karta hai.
