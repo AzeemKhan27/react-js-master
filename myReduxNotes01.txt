@@ -1,2 +1,11 @@
 
 what is redux :  redux is state library that is used to passing data.
+
+
+Steps:
+
+1- npm install @reduxjs/toolkit
+2- npm install react-redux
+
+3- configureStore() , createReducer() , createAction(), createSlice() , 
+   combineSlices(), createAsyncThunk, createEntityAdapter,  createSelector.
