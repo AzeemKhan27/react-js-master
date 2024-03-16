@@ -1,0 +1,84 @@
+
+
+steps: 
+
+ - create folder named "app" and then create file named "store.js"           // store config
+
+ - create folder named "features" and then create file named "todoSlice.js"  // reducer config
+
+ code note :-
+
+-------------------  
+  Step 1 :
+-------------------
+  import { createSlice , nanoid } from "@reduxjs/toolkit";
+
+   const initialState = {
+      todos : [{ id : 1, text : "Hello World!" }]
+   }
+
+------------------------------------------
+Step 2 : Create reducer config and export
+------------------------------------------
+   const todoSlice = createSlice({
+      name : "todo",
+      initialState,
+      reducers : {
+         addTodo : (state, action) => {   // "state" will give current value and "action" which data we will get value like id.
+             const todo = {
+               id: nanoid(),
+               text : action.payload.text
+             }
+             state.todos.push(todo)
+         },
+         removeTodo : (state,action) => {
+            state.todos = state.todos.filter((todo) => todo.id !== action.payload.id)
+         }, 
+         updateTodo : (state, action) => {
+            state.todos = state.todos.map((todo) => todo.id === action.payload.id : action.payload ? todo)
+         }
+      }
+   })
+
+-----------------------------------------------------
+Step 3: export reducer functionality what we made  
+-----------------------------------------------------
+
+export const { addTodo, removeTodo, updateTodo } = todoSlice.actions
+
+-----------------------------------------------------
+Step 4: export registered reducer functionality.
+-----------------------------------------------------
+
+export default todoSlice.reducer
+
+-----------------------------------------------------
+Step 5 : Back to app/store.js file
+-----------------------------------------------------
+
+import todoReducer from '../features/todo/todoSlice.js';
+
+export const store = configureStore({
+    reducer : todoReducer  
+})
+
+------------------------------------------------------------------------
+Step 6 : create component and two files named AddTodo.jsx, Todos.jsx
+------------------------------------------------------------------------
+
+- write form jsx code.
+- import { useDispatch } from 'react-redux';
+- import { addTodo } from "../features/todo/todoSlice.jsx";
+
+ (i) make state to hold data in variables
+    const [input, setInput] = useState('');
+    const dispatch = useDispatch()
+
+  (ii) make method/functionality for button.
+        const addTodoHandler = (e) => {
+        e.preventDefault()
+        dispatch(addTodo(input))   // we are send input state to addTodo reducer functionality
+    }
+
+
+NOTE: useDispatch -> reducer -> store  // dispatch reducer ko use krte hue store me changes karta hai.
