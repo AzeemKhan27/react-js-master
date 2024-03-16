@@ -10,6 +10,7 @@ function AddTodo(){
     const addTodoHandler = (e) => {
         e.preventDefault()
         dispatch(addTodo(input))   // we are send input state to addTodo reducer functionality
+        setInput("")               // cleanup input
     }
 
     return (
