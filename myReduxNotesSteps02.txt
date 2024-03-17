@@ -90,9 +90,48 @@ Step 6 : create component and two files named AddTodo.jsx, Todos.jsx
   (iii)  const todos = useSelector(state => state.todos)  // GET todos from store
          const dispatch = useDispatch();
          return ( 
-            <div>Todos</div>
+                    <>
+                        <div>Todos</div>
+                        {todos.map((todo)=>(
+                              <li key={todo.id}>
+                                 {todo.text}
+                                 <button
+                                 onClick={()=> dispatch(removeTodo(todo.id))}
+                                 >X</button>
+                              </li>
+                        ))}
+                      </>
          )
 }
+
+------------------------------------------------------------------------
+Step 7 : Add components in App.jsx
+------------------------------------------------------------------------
+
+function App() {
+
+  return (
+    <>
+     <h1>Learn about redux toolkit</h1>
+     <AddTodo />
+     <Todos />
+    </>
+  )
+}
+
+
+------------------------------------------------------------------------
+Step 8 : add provider , store in main.jsx
+------------------------------------------------------------------------
+
+import { Provider } from "react-redux";
+import { store } from "./app/store.js"
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+)
 
 
 NOTE: useDispatch -> reducer -> store  // dispatch reducer ko use krte hue store me changes karta hai.
