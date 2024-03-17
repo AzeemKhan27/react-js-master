@@ -22,7 +22,11 @@ const todoSlice = createSlice({
             state.todos = state.todos.filter((todo) => todo.id !== action.payload)
         },
         updateTodo: (state,action) => {
-            state.todos = state.todos.map((todo) => todo.id === action.payload.id ? action.payload : todo)
+            const { id, newText } = action.payload; // Destructure payload to get id and newText
+            const existingTodo = state.todos.find((todo) => todo.id === id);
+            if(existingTodo){
+                existingTodo.text = newText;
+            }
         }
     }
 })
