@@ -7,7 +7,12 @@
 
 #### (1) setup .env file then create folder named conf/conf.js and store all variables and export.
 #### (2) create appwrite folder and make two files named auth.js and config.js and setup code by appwrite documentation.
+#### (3) create folder named "store/store.js" and make redux store.
+#### (4) create store/authSlice.js file and create Slice. Then make components
+#### (5) goto App.jsx and make loading for fetching data from appwrite db.
 
+
+     
 
 ## important notes
 
