@@ -14,7 +14,7 @@
 ## Part 2:
 
 #### (1) create components like Footer,Header,and Container folder. and write logic for logout in Header/LogoutBtn.js
-#### (2) Header.jsx file code add
+#### (2) Header.jsx -> Button.jsx -> Input.jsx file code add 
 
 
 
@@ -29,4 +29,9 @@
  #### (2) when we make application by "create vite@latest"
  define env : VITE_NAME
  access : import.meta.env.VITE_NAME
+
+
+ ### Definations :-
+
+ #### forwardRef() :- used for forward state from input tag to login button.
 
