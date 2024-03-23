@@ -16,6 +16,10 @@
 #### (1) create components like Footer,Header,and Container folder. and write logic for logout in Header/LogoutBtn.js
 #### (2) Header.jsx -> Button.jsx -> Input.jsx file code add 
 
+## Part 3: using react hooks form in production
+
+#### (1) Select.jsx --> PostCard.jsx --> Login.jsx
+
 
 
      
