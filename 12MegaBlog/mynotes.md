@@ -18,7 +18,7 @@
 
 ## Part 3: using react hooks form in production
 
-#### (1) Select.jsx --> PostCard.jsx --> Login.jsx
+#### (1) Select.jsx --> PostCard.jsx --> Login.jsx --> Signup.jsx --> AuthLayout.jsx
 
 
 
