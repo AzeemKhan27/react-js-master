@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import authService from "../appwrite/auth"
+import authService from "../appwrite/auth.js"
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from "../store/authSlice"
 import { Button, Input, Logo } from "./index"
@@ -13,7 +13,7 @@ function Signup() {
     const dispatch = useDispatch()
     const { register, handleSubmit } = useForm()
 
-    const create = async (data) => {k
+    const create = async (data) => {
        setError("")
        try {
           const userData = await authService.createAccount(data);
@@ -58,23 +58,23 @@ function Signup() {
                        })}
                        />
 
-                     <Input 
-                        label = 'Email: '
-                        placeholder = 'Enter your email'
-                        type = 'email'
-                        {...register('email',{
-                            required : true,
-                            validate : {
-                                matchPattern : (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) 
-                                || "Email address must be a valid address",
-                                 }   
+                      <Input
+                        label="Email: "
+                        placeholder="Enter your email"
+                        type="email"
+                        {...register("email", {
+                            required: true,
+                            validate: {
+                                matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                                "Email address must be a valid address",
+                            }
                         })}
-                     />
+                        />
 
                      <Input 
                        label = "Password"
                        placeholder = "Enter your password"
-                       type = 'password'
+                       type = "password"
                        {...register("password",{
                            required : true
                        })}

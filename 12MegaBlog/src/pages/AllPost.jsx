@@ -27,4 +27,4 @@ function AllPost() {
   )
 }
 
-export default AllPosts
+export default AllPost
