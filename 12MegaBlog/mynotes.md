@@ -20,6 +20,20 @@
 
 #### (1) Select.jsx --> PostCard.jsx --> Login.jsx --> Signup.jsx --> AuthLayout.jsx
 
+## Part 4: Adding form and slug value and Using RTE and Controller.
+
+#### (1) RTE.jsx --> PostForm.jsx --> 
+
+## Part 5: 
+
+#### (1) pages/Signup.jsx --> AddPost.jsx --> Login.jsx --> AllPost.jsx --> EditPost.jsx --> Home.jsx -->
+
+#### (2) Routing:   --> main.jsx
+
+   
+
+
+
 
 
      
