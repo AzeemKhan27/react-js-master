@@ -62,7 +62,7 @@ function Signup() {
                         label="Email: "
                         placeholder="Enter your email"
                         type="email"
-                        {...register("email", {
+                        {...register("email", { 
                             required: true,
                             validate: {
                                 matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||

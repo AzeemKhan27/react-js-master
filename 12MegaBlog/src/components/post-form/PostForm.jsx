@@ -6,17 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function PostForm({post}) {
-    const {register,handleSubmit,watch,setValue, getValues,control} = useForm({
+    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues : { 
-            title : post?.title || '',
-            slug : post?.slug || '',
-            content : post?.content || '',
+            title : post?.title || "",
+            slug : post?.slug || "",
+            content : post?.content || "",
             status : post?.status || 'active'
         },
-    })
+    });
 
     const navigate = useNavigate();
-    const userData = useSelector(state => state.user.userData);
+    const userData = useSelector(state => state.auth.userData);
 
     const submit = async(data) => {
           if(post){
@@ -36,7 +36,8 @@ export default function PostForm({post}) {
             }
 
           }else{
-            const file = await appwriteService.uploadFile(data.image[0] ? data.image[0] : null); //check
+            // const file = await appwriteService.uploadFile(data.image[0] ? data.image[0] : null); //check
+            const file = await appwriteService.uploadFile(data.image[0]); //check
 
             if(file){
                 const fileId = file.$id
@@ -83,7 +84,7 @@ export default function PostForm({post}) {
        return () => {
           subscription.unsubscribe()
        }
-    },[watch,slugTransform,setValue])
+    },[watch, slugTransform, setValue])
 
 
   return (
