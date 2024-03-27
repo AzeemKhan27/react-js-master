@@ -14,25 +14,33 @@ export class Service{
         this.bucket = new Storage(this.client);
     }
 
-    async createPost({title, slug, content, featuredImage, status, userId}){
+
+    async createPost({title, slug, content, featuredImage, status, userId = null}){
         console.log("USER ID : ",userId,"STATUS : ", status,"TITLE : ", title,)
         try {
+            const uniqueId = ID.unique(); // Generate a unique ID
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                slug,
+                uniqueId, //slug,
                 {
                     title,
                     content,
                     featuredImage,
                     status,
-                    userId,
-                }
+                    userId, //userId : userId || null , // Use null if userId is not provided
+                    slug, // Store the 'slug' as a field in the document
+                },
             )
         } catch (error) {
             console.log("Appwrite serive :: createPost :: error", error.message);
         }
     }
+                // [
+                //     Permission.read(Role.user(userId)),  //6602d4d32cfd9374e694
+                //     Permission.update(Role.user(userId)),
+                //     Permission.delete(Role.user(userId))
+                // ]
 
     async updatePost(slug, {title, content, featuredImage, status}){
         try {
@@ -82,28 +90,44 @@ export class Service{
         }
     }
 
-    async getPosts(queries = [Query.equal("status", "active")]){
-        console.log("get list of documents : ",conf.appwriteDatabaseId, conf.appwriteCollectionId, queries,)
+    async getPosts(queries = [Query.equal("status", "active")]) {
         try {
-            return await this.databases.listDocuments(
+          return await this.databases.listDocuments(
+            conf.appwriteDatabaseId,
+            conf.appwriteCollectionId,
+            queries
+          );
+        } catch (error) {
+          if (error.code === 401) {
+            // User is not authorized, attempt to refresh the session
+            try {
+              await authService.refreshSession();
+              // If session refresh is successful, retry the operation
+              return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                queries,
-
-            )
-        } catch (error) {
+                queries
+              );
+            } catch (refreshError) {
+              console.log('Error refreshing session:', refreshError);
+              // Handle the case where session refresh fails (e.g., prompt for login)
+            }
+          } else {
             console.log("Appwrite serive :: getPosts :: error", error);
-            return false
+          }
+          return false;
         }
-    }
+      }
 
     // file upload service
 
     async uploadFile(file){
+        console.log("Uploading file : ",conf.appwriteBucketId,
+        " : UNIQUE ID : " ,ID.unique() )
         try {
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
-                ID.unique(),
+                ID.unique(),  //Date.now(), 
                 file
             )
         } catch (error) {

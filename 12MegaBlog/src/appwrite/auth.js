@@ -12,9 +12,23 @@ export class AuthService {
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId)
         this.account = new Account(this.client)  
+        
     }
 
+
+    async refreshSession() {
+        try {
+          await this.account.refreshSession();
+          console.log('Session refreshed successfully');
+        } catch (error) {
+          console.log('Error refreshing session:', error);
+          throw error; // Or handle the error as needed
+        }
+      }
+    
+
     async createAccount({email, password, name}) {
+      console.log("CREATE ACCOUNT : ", ID.unique())
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
@@ -33,26 +47,27 @@ export class AuthService {
             const session = await this.account.createEmailSession(email, password);
             this.sessionId = session.$id;
             return session;
+            //return await this.account.createEmailSession(email, password);
         } catch (error) {
             throw error;
         }
     }
 
     async getCurrentUser() {
-
         if (this.sessionId) {
-            this.client.setSessionID(this.sessionId);
-          }
-
-        try {
-            
-            return await this.account.get()
-        } catch (error) {
-            console.log("Appwrite serive :: getCurrentUser :: error", error.message);
+          this.client.setSessionID(this.sessionId);
         }
-
-        return null;
-    }
+      
+        try {
+          return await this.account.get();
+        } catch (error) {
+          if (error.code === 401) {
+            throw new Error('Session expired or invalid. Please log in again.');
+          } else {
+            throw error;
+          }
+        }
+      }
 
     async logout() {
 
