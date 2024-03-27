@@ -15,6 +15,7 @@ export class Service{
     }
 
     async createPost({title, slug, content, featuredImage, status, userId}){
+        console.log("USER ID : ",userId,"STATUS : ", status,"TITLE : ", title,)
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -29,7 +30,7 @@ export class Service{
                 }
             )
         } catch (error) {
-            console.log("Appwrite serive :: createPost :: error", error);
+            console.log("Appwrite serive :: createPost :: error", error.message);
         }
     }
 
@@ -82,6 +83,7 @@ export class Service{
     }
 
     async getPosts(queries = [Query.equal("status", "active")]){
+        console.log("get list of documents : ",conf.appwriteDatabaseId, conf.appwriteCollectionId, queries,)
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
