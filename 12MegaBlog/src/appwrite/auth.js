@@ -18,7 +18,8 @@ export class AuthService {
 
     async refreshSession() {
         try {
-          await this.account.refreshSession();
+           await this.account.refreshSession();
+         // await this.account.createAnonymousSession(); // Create an anonymous session
           console.log('Session refreshed successfully');
         } catch (error) {
           console.log('Error refreshing session:', error);
@@ -28,12 +29,13 @@ export class AuthService {
     
 
     async createAccount({email, password, name}) {
-      console.log("CREATE ACCOUNT : ", ID.unique())
+   
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
                 // call another method
-                return this.login({email, password});
+                const session = await this.login({email, password}); // Await the login method
+                return session;
             } else {
                return  userAccount;
             }
@@ -46,20 +48,25 @@ export class AuthService {
         try {
             const session = await this.account.createEmailSession(email, password);
             this.sessionId = session.$id;
+            console.log("SESSION ID : ", this.sessionId)
             return session;
-            //return await this.account.createEmailSession(email, password);
         } catch (error) {
             throw error;
         }
     }
 
     async getCurrentUser() {
-        if (this.sessionId) {
-          this.client.setSessionID(this.sessionId);
-        }
+        // if (this.sessionId) {
+        //   this.client.setSessionID(this.sessionId);
+        // }
+
+         // Set session ID in the headers
+         const headers = {
+          'X-Appwrite-Session': this.sessionId,
+      };
       
         try {
-          return await this.account.get();
+          return await this.account.get(headers);
         } catch (error) {
           if (error.code === 401) {
             throw new Error('Session expired or invalid. Please log in again.');
@@ -81,4 +88,4 @@ export class AuthService {
 
 const authService = new AuthService();
 
-export default authService
+export default authService;
