@@ -30,6 +30,30 @@
 
 #### (2) Routing:   --> main.jsx
 
+
+## How to configure SSH key into GitHub :- 
+
+#### 1- click on setting -> SSH and GPG Key -> New SSH Key button -> Enter title like SSH_key -> 
+
+#### (1) open git bash
+#### (2) generate a new ED25519 SSH key pair
+
+##### - ssh-keygen -t ed25519 -C "azeemdeveloper27@gmail.com"
+
+#### (3) then press "enter" thrice times
+#### (4) copy your pub SSH key to clipboard by option 1 or 2 command
+
+##### - cat ~/.ssh/id_ed25519.pub | clip
+            OR
+##### - clip < ~/.ssh/id_ed25519.pub
+
+#### (7) paste it inside -> edit profile -> ssh-keys -> key(textbox)
+
+
+### :::::::::::: Diffrent way :::::::::::::
+
+#### - ssh-keygen -t rsa
+
    
 
 
