@@ -1,5 +1,6 @@
 import conf from '../conf/conf.js';
 import { Client, ID, Databases, Storage, Query } from "appwrite";
+import { nanoid } from 'nanoid';
 
 export class Service{
     client = new Client();
@@ -15,28 +16,62 @@ export class Service{
     }
 
 
-    async createPost({ title, content, featuredImage, status, userId }) {
+    // async createPost({ title, content, featuredImage, status, userId = nanoid() }) {
+    //     function generateValidDocumentId(){
+
+    //         let id = ID.unique();
+            
+    //         // Remove any special characters from the beginning
+    //         id = id.replace(/^[^a-zA-Z0-9]/, '');
+          
+    //         // Remove any characters that are not a-z, A-Z, 0-9, period, hyphen, or underscore
+    //         id = id.replace(/[^a-zA-Z0-9._-]/g, '');
+          
+    //         // Ensure the length is at most 36 characters
+    //         id = id.slice(0, 36);
+          
+    //         return id;
+    //       }
+    //     try {
+    //         const validDocumentId = generateValidDocumentId();
+    //         return await this.databases.createDocument(
+    //             conf.appwriteDatabaseId,
+    //             conf.appwriteCollectionId,
+    //             validDocumentId, // Let Appwrite generate the document ID
+    //             {
+    //                 title,
+    //                 content,
+    //                 featuredImage,
+    //                 status,
+    //                 userId , //: userId || null, // Include the userId attribute
+    //             },
+    //         );
+    //     } catch (error) {
+    //         console.log("Appwrite service :: createPost :: error", error.message);
+    //         throw error;
+    //     }
+    // }
+
+    async createPost({ title, content, featuredImage, status, userId = nanoid() }) {
         try {
-            return await this.databases.createDocument(
-                conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
-                null, // Let Appwrite generate the document ID
-                {
-                    title,
-                    content,
-                    featuredImage,
-                    status,
-                    userId, // Include the userId attribute
-                },
-            );
+          const documentId = nanoid(); // Generate a unique document ID using nanoid
+          return await this.databases.createDocument(
+            conf.appwriteDatabaseId,
+            conf.appwriteCollectionId,
+            documentId,
+            {
+              title,
+              content,
+              featuredImage,
+              status,
+              userId,
+            },
+          );
         } catch (error) {
-            console.log("Appwrite service :: createPost :: error", error.message);
-            throw error;
+          console.log("Appwrite service :: createPost :: error", error.message);
+          throw error;
         }
-    }
-    
-    
-    
+      }
     
 
     async updatePost(slug, {title, content, featuredImage, status}){
@@ -103,8 +138,7 @@ export class Service{
     // file upload service
 
     async uploadFile(file){
-        console.log("Uploading file : ",conf.appwriteBucketId,
-        " : UNIQUE ID : " ,ID.unique() )
+   
         try {
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
