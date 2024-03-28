@@ -56,10 +56,12 @@ export class AuthService {
     }
 
     async getCurrentUser() {
-        // if (this.sessionId) {
-        //   this.client.setSessionID(this.sessionId);
-        // }
-
+        if (!this.sessionId) {
+          // this.client.setSessionID(this.sessionId);
+          alert("No valid session ID found, please login")
+          return; // or return a default value or null
+        }
+        
          // Set session ID in the headers
          const headers = {
           'X-Appwrite-Session': this.sessionId,
@@ -69,8 +71,10 @@ export class AuthService {
           return await this.account.get(headers);
         } catch (error) {
           if (error.code === 401) {
-            throw new Error('Session expired or invalid. Please log in again.');
+            // alert('Session expired or invalid. Please log in again.');
+            throw new Error(alert('Session expired or invalid. Please log in again.'));
           } else {
+            alert(`An error occurred: ${error.message}`);
             throw error;
           }
         }

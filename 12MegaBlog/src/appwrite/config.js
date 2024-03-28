@@ -17,44 +17,48 @@ export class Service{
 
 
     // async createPost({ title, content, featuredImage, status, userId = nanoid() }) {
-    //     function generateValidDocumentId(){
-
-    //         let id = ID.unique();
-            
-    //         // Remove any special characters from the beginning
-    //         id = id.replace(/^[^a-zA-Z0-9]/, '');
-          
-    //         // Remove any characters that are not a-z, A-Z, 0-9, period, hyphen, or underscore
-    //         id = id.replace(/[^a-zA-Z0-9._-]/g, '');
-          
-    //         // Ensure the length is at most 36 characters
-    //         id = id.slice(0, 36);
-          
-    //         return id;
-    //       }
     //     try {
-    //         const validDocumentId = generateValidDocumentId();
-    //         return await this.databases.createDocument(
-    //             conf.appwriteDatabaseId,
-    //             conf.appwriteCollectionId,
-    //             validDocumentId, // Let Appwrite generate the document ID
-    //             {
-    //                 title,
-    //                 content,
-    //                 featuredImage,
-    //                 status,
-    //                 userId , //: userId || null, // Include the userId attribute
-    //             },
-    //         );
+    //       const documentId = nanoid(); // Generate a unique document ID using nanoid
+    //       return await this.databases.createDocument(
+    //         conf.appwriteDatabaseId,
+    //         conf.appwriteCollectionId,
+    //         documentId,
+    //         {
+    //           title,
+    //           content,
+    //           featuredImage,
+    //           status,
+    //           userId,
+    //         },
+    //       );
     //     } catch (error) {
-    //         console.log("Appwrite service :: createPost :: error", error.message);
-    //         throw error;
+    //       console.log("Appwrite service :: createPost :: error", error.message);
+    //       throw error;
     //     }
-    // }
+    //   }
 
     async createPost({ title, content, featuredImage, status, userId = nanoid() }) {
         try {
-          const documentId = nanoid(); // Generate a unique document ID using nanoid
+          let documentId = nanoid(); // Generate an initial unique document ID using nanoid
+      
+          // Check if a document with the generated ID already exists
+          let existingDocument = await this.databases.getDocument(
+            conf.appwriteDatabaseId,
+            conf.appwriteCollectionId,
+            documentId
+          );
+      
+          // If a document with the generated ID exists, generate a new unique ID
+          while (existingDocument) {
+            documentId = nanoid();
+            existingDocument = await this.databases.getDocument(
+              conf.appwriteDatabaseId,
+              conf.appwriteCollectionId,
+              documentId
+            );
+          }
+      
+          // Create the new document with the unique ID
           return await this.databases.createDocument(
             conf.appwriteDatabaseId,
             conf.appwriteCollectionId,
@@ -65,7 +69,7 @@ export class Service{
               featuredImage,
               status,
               userId,
-            },
+            }
           );
         } catch (error) {
           console.log("Appwrite service :: createPost :: error", error.message);
